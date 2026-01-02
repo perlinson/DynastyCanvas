@@ -1,9 +1,11 @@
 
+export type EventCategory = 'political' | 'cultural' | 'military' | 'economic';
+
 export interface KeyFigure {
   name: string;
   title: string;
   description: string;
-  biography: string; // Added for life story details
+  biography: string;
 }
 
 export interface KeyEvent {
@@ -13,6 +15,7 @@ export interface KeyEvent {
   description: string;
   details: string;
   relatedFigures: string[];
+  category: EventCategory; // Added category for filtering
   imageUrl?: string;
 }
 
@@ -25,6 +28,7 @@ export interface Dynasty {
   id: string;
   name: string;
   timeRange: string;
+  duration: number; // For comparison
   founder: string;
   capital: string;
   characteristics: string[];
@@ -32,4 +36,5 @@ export interface Dynasty {
   keyFigures: KeyFigure[];
   achievements: Achievement[];
   sealText: string;
+  mapUrl: string; // For map mode
 }

@@ -13,40 +13,58 @@
             --color-ink: #1A1A1A;
             --color-paper: #F4EBD0;
             --color-celadon: #ACE1AF;
+            --color-gold: #D4AF37;
         }
+
         body {
             margin: 0;
             padding: 0;
             background-color: var(--color-ink);
             font-family: 'Noto Serif SC', serif;
-            overflow: hidden; /* Main app handles its own scrolling */
+            overflow: hidden;
+            transition: background-color 0.5s ease;
         }
-        .font-calligraphy {
-            font-family: 'Ma Shan Zheng', cursive;
+
+        body.dark-mode {
+            --color-paper: #1c1c1c;
+            --color-ink: #f4ebd0;
+            --color-vermilion: #e63946;
+            background-color: #0a0a0a;
         }
-        .font-ancient {
-            font-family: 'ZCOOL+XiaoWei', serif;
-        }
-        /* Paper texture effect */
+
+        .font-calligraphy { font-family: 'Ma Shan Zheng', cursive; }
+        .font-ancient { font-family: 'ZCOOL+XiaoWei', serif; }
+
         .paper-bg {
             background-color: var(--color-paper);
             background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+            transition: background-color 0.5s ease;
         }
+
+        body.dark-mode .paper-bg {
+            background-image: url("https://www.transparenttextures.com/patterns/dark-leather.png");
+            filter: brightness(0.8) contrast(1.2);
+        }
+
         .ink-edge {
             mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
         }
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            height: 10px;
-            width: 10px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #e4dcc0;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #8b4513;
-            border-radius: 5px;
-        }
+
+        /* Category colors */
+        .cat-political { border-color: #B22222; color: #B22222; }
+        .cat-military { border-color: #4A5568; color: #4A5568; }
+        .cat-cultural { border-color: #2D3748; color: #2D3748; }
+
+        body.dark-mode .cat-political { border-color: #ff4d4d; color: #ff4d4d; }
+        body.dark-mode .cat-military { border-color: #cbd5e0; color: #cbd5e0; }
+        body.dark-mode .cat-cultural { border-color: #D4AF37; color: #D4AF37; }
+
+        ::-webkit-scrollbar { height: 10px; width: 10px; }
+        ::-webkit-scrollbar-track { background: #e4dcc0; }
+        ::-webkit-scrollbar-thumb { background: #8b4513; border-radius: 5px; }
+
+        body.dark-mode ::-webkit-scrollbar-track { background: #222; }
+        body.dark-mode ::-webkit-scrollbar-thumb { background: #D4AF37; }
     </style>
 <script type="importmap">
 {
@@ -54,7 +72,7 @@
     "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
     "framer-motion": "https://esm.sh/framer-motion@^12.23.26",
     "react/": "https://esm.sh/react@^19.2.3/",
-    "react": "https://esm.sh/react@^19.2.3"
+    "react": "https://esm.sh/react@^19.2.3/"
   }
 }
 </script>
