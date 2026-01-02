@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中华历代画卷</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=ZCOOL+XiaoWei&family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-vermilion: #B22222;
+            --color-ink: #1A1A1A;
+            --color-paper: #F4EBD0;
+            --color-celadon: #ACE1AF;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--color-ink);
+            font-family: 'Noto Serif SC', serif;
+            overflow: hidden; /* Main app handles its own scrolling */
+        }
+        .font-calligraphy {
+            font-family: 'Ma Shan Zheng', cursive;
+        }
+        .font-ancient {
+            font-family: 'ZCOOL+XiaoWei', serif;
+        }
+        /* Paper texture effect */
+        .paper-bg {
+            background-color: var(--color-paper);
+            background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+        }
+        .ink-edge {
+            mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            height: 10px;
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #e4dcc0;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #8b4513;
+            border-radius: 5px;
+        }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "framer-motion": "https://esm.sh/framer-motion@^12.23.26",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3"
+  }
+}
+</script>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+</html>
