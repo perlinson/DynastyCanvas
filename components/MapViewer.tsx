@@ -1,6 +1,8 @@
 
 import React from 'react';
-import { motion } from 'framer-motion';
+// Fix framer-motion type errors by casting the motion component to any
+import { motion as motionBase } from 'framer-motion';
+const motion = motionBase as any;
 import { Dynasty } from '../types';
 
 interface MapViewerProps {

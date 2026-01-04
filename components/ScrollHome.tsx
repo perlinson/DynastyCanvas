@@ -1,14 +1,16 @@
 
 import React, { useRef, useState } from 'react';
-import { motion } from 'framer-motion';
-import { DYNASTIES } from '../data/history';
+// Fix framer-motion type errors by casting the motion component to any
+import { motion as motionBase } from 'framer-motion';
+const motion = motionBase as any;
 import { Dynasty } from '../types';
 
 interface ScrollHomeProps {
+  dynasties: Dynasty[];
   onSelectDynasty: (dynasty: Dynasty) => void;
 }
 
-const ScrollHome: React.FC<ScrollHomeProps> = ({ onSelectDynasty }) => {
+const ScrollHome: React.FC<ScrollHomeProps> = ({ dynasties, onSelectDynasty }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
@@ -48,7 +50,7 @@ const ScrollHome: React.FC<ScrollHomeProps> = ({ onSelectDynasty }) => {
           onMouseUp={handleMouseUp}
           onMouseLeave={handleMouseUp}
           onMouseMove={handleMouseMove}
-          className="flex-1 overflow-x-auto scroll-smooth cursor-grab active:cursor-grabbing paper-bg relative flex items-center ink-edge"
+          className="flex-1 overflow-x-auto scroll-smooth cursor-grab active:cursor-grabbing paper-bg relative flex items-center ink-edge no-scrollbar"
         >
           {/* Abstract background elements */}
           <div className="absolute inset-0 opacity-10 pointer-events-none flex items-center justify-around overflow-hidden whitespace-nowrap">
@@ -57,36 +59,38 @@ const ScrollHome: React.FC<ScrollHomeProps> = ({ onSelectDynasty }) => {
              ))}
           </div>
 
-          <div className="flex items-center min-w-[4000px] px-[20vw] relative h-full">
+          <div className="flex items-center min-w-[3000px] px-[20vw] relative h-full">
             {/* The Connecting Timeline Line */}
             <div className="absolute h-1 bg-[#8B4513]/20 w-full top-1/2 left-0 -translate-y-1/2"></div>
             
-            {DYNASTIES.map((dynasty, index) => (
+            {dynasties.map((dynasty) => (
               <div 
                 key={dynasty.id} 
                 className="relative flex flex-col items-center mx-24 group"
               >
                 {/* Year display */}
                 <span className="absolute -top-16 font-ancient text-[#8B4513] text-lg opacity-60">
-                  {dynasty.timeRange.split('-')[0]}
+                  {dynasty.timeRange.split('年')[0] || dynasty.timeRange}
                 </span>
 
                 {/* The Seal */}
                 <motion.button
-                  whileHover={{ scale: 1.15, rotate: 5 }}
-                  whileTap={{ scale: 0.9, rotate: -5 }}
+                  whileHover={{ scale: 1.1, rotate: 2 }}
+                  whileTap={{ scale: 0.95 }}
                   onClick={() => onSelectDynasty(dynasty)}
-                  className="relative w-28 h-28 bg-[#B22222] text-[#F4EBD0] border-4 border-[#8B4513] shadow-lg flex items-center justify-center rounded-sm transition-shadow hover:shadow-[#B22222]/50"
+                  className="relative w-28 h-28 bg-[#B22222] text-[#F4EBD0] border-4 border-[#8B4513] shadow-lg flex items-center justify-center rounded-sm transition-shadow hover:shadow-[#B22222]/50 p-2"
                 >
-                  <div className="absolute inset-1 border border-[#F4EBD0]/30"></div>
-                  <span className="font-calligraphy text-5xl select-none leading-none">
-                    {dynasty.sealText}
+                  <div className="absolute inset-1 border border-[#F4EBD0]/20"></div>
+                  <span className={`font-calligraphy leading-tight select-none flex flex-col items-center justify-center ${dynasty.sealText.length > 1 ? 'text-4xl' : 'text-6xl'}`}>
+                    {dynasty.sealText.split('').map((char, i) => (
+                      <span key={i}>{char}</span>
+                    ))}
                   </span>
                 </motion.button>
 
                 {/* Dynasty Name Label */}
                 <motion.div 
-                  initial={{ opacity: 0 }}
+                  initial={{ opacity: 0.6 }}
                   whileHover={{ opacity: 1 }}
                   className="absolute -bottom-16 whitespace-nowrap"
                 >
